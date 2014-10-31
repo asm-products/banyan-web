@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block html_head %}
+    <title>Banyan - stories with friends</title>{% endblock %}
+{% block body_head %}
+{% endblock body_head %}
+{% block content %}
+<div class="jumbotron">
+    <div class="container-fluid text-center">
+        <p class="lead">
+            <h2><span class="label label-success">Banyan</span> is a social collaboration tool that helps you <span class="label label-info">record</span> and <span class="label label-info">share</span> your <span class="label label-info">experiences</span>.</h2>
+        </p>
+        <p>
+            <a href="https://itunes.apple.com/us/app/banyan-stories-with-friends/id824087526?mt=8&uo=4" target="itunes_store" style="display:inline-block;overflow:hidden;background:url(https://linkmaker.itunes.apple.com/htmlResources/assets/en_us//images/web/linkmaker/badge_appstore-lrg.png) no-repeat;width:135px;height:40px;@media only screen{background-image:url(https://linkmaker.itunes.apple.com/htmlResources/assets/en_us//images/web/linkmaker/badge_appstore-lrg.svg);}"></a>
+        </p>
+        <div style="min-height:20px; position: relative; bottom: 0;height: 60px"></div>
+        {% if user.is_authenticated %}
+        <a href="{% url 'home_view' %}" class="btn btn-primary btn-lg" role="button">Continue to the website</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}

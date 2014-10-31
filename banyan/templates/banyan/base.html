@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>{% block title %}Home{% endblock %} | Banyan</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+		<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+		<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+		{% load staticfiles %}
+		<link href="{% static "css/style.css" %} " rel="stylesheet" type="text/css" />
+
+		<meta name="apple-itunes-app" content="app-id=824087526">
+
+		{% block html_head %}{% endblock %}
+
+		<script type="text/javascript">
+		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+		
+		  ga('create', 'UA-35913422-1', 'banyan.io');
+		  ga('send', 'pageview');
+		</script>
+		
+		<script type="text/javascript">
+		    if (window.location.hash && window.location.hash == '#_=_') {
+		        if (window.history && history.pushState) {
+		            window.history.pushState("", document.title, window.location.pathname);
+		        } else {
+		            // Prevent scrolling by storing the page's current scroll offset
+		            var scroll = {
+		                top: document.body.scrollTop,
+		                left: document.body.scrollLeft
+		            };
+		            window.location.hash = '';
+		            // Restore the scroll offset, should be flicker free
+		            document.body.scrollTop = scroll.top;
+		            document.body.scrollLeft = scroll.left;
+		        }
+		    }
+		</script>
+	</head>
+
+	<body>
+		<div id="wrap">
+			{% block body %}
+				{% include "banyan/fragments/header.html" %}
+				{% block body_head %}{% endblock body_head %}
+				{% block content %}{% endblock content %}
+			{% endblock body %}
+		</div>
+	</body>
+
+	<footer>
+		<nav class="navbar navbar-default footer-nav">
+			<div class="text-muted">
+				<p>
+					<a href="{% url 'banyan-terms' %}" class="text-muted">Terms</a>
+					/
+					<a href="{% url 'banyan-privacy' %}" class="text-muted">Privacy</a>
+				</p>
+				<p>
+					&copy; Banyan {% now 'Y' %}
+				</p>
+			</div>
+		</nav>
+	</footer>
+	<!-- Bootstrap core JavaScript
+	================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="//code.jquery.com/jquery.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<script>
+		// Include the UserVoice JavaScript SDK (only needed once on a page)
+		UserVoice = window.UserVoice || [];
+		(function() {
+			var uv = document.createElement('script');
+			uv.type = 'text/javascript';
+			uv.async = true;
+			uv.src = '//widget.uservoice.com/uEIz9OAvzlCQjg4ngan1Xw.js';
+			var s = document.getElementsByTagName('script')[0];
+			s.parentNode.insertBefore(uv, s)
+		})();
+
+		//
+		// UserVoice Javascript SDK developer documentation:
+		// https://www.uservoice.com/o/javascript-sdk
+		//
+
+		// Set colors
+		UserVoice.push(['set', {
+			accent_color : '#6aba2e',
+			trigger_color : 'white',
+			trigger_background_color : 'rgba(46, 49, 51, 0.6)'
+		}]);
+
+		// Identify the user and pass traits
+		// To enable, replace sample data with actual user traits and uncomment the line
+		UserVoice.push(['identify', {
+			{% if user.is_authenticated %}
+				email:      "{{ request.user.email }}",
+				name:       "{{ request.user.first_name }} {{ request.user.last_name }}",
+				id:         "{{ request.user.id }}"
+			{% else %}
+			{% endif %}
+		}]);
+
+		// Add default trigger to the bottom-right corner of the window:
+		UserVoice.push(['addTrigger', {
+			mode : 'contact',
+			trigger_position : 'bottom-right'
+		}]);
+
+		// Or, use your own custom trigger:
+		//UserVoice.push(['addTrigger', '#id', { mode: 'contact' }]);
+
+		// Autoprompt for Satisfaction and SmartVote (only displayed under certain conditions)
+		UserVoice.push(['autoprompt', {}]);
+	</script>
+	{% block document_end %}{% endblock document_end %}
+</html>

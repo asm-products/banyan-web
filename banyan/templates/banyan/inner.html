@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load thumbnail %}
+{% load mediaFiltersForObject %}
+{% load toPythonObjects %}
+{% load remoteObjectFilters %}
+{% load staticfiles %}
+
+{% block content %}
+	<div class="container" id="story-detail">
+		{% if piece %}
+			{% include "banyan/fragments/inner_piece_header.html" %}
+			
+			<div class="row">
+				<div class="col-md-offset-2 col-md-8 story-body">
+					{% if piece|imageUrlForObject %}
+						{% if piece|imageUrlForObject|is_portrait %}
+							<div class="row">
+								<div class="col-xs-3 animated-item closed">
+									<a href=" {{ piece|imageUrlForObject }}" target="_blank"> <img src="{{ piece|imageUrlForObject }}" class="img-rounded img-responsive" /> </a>
+								</div>
+								{% if piece.longText or piece.shortText %}
+									<div class="col-xs-12 col-sm-7 animated-item closed">
+										<div class="margin-top visible-xs"></div>
+											<h3> {{ piece.shortText|linebreaks }} </h3>
+											<h4> {{ piece.longText|linebreaks }} </h4>
+									</div>
+								{% endif %}
+							</div>
+						{% else %}
+							<div class="row">
+								<div class="col-xs-6 col-xs-offset-3 {% if not piece.longText and not piece.shortText %}margin-bottom{% endif %} animated-item closed">
+									<a href="{{ piece|imageUrlForObject }}" target="_blank"> <img src="{{ piece|imageUrlForObject }}" class="img-rounded img-responsive" /></a>
+								</div>
+								{% if piece.longText or piece.shortText %}
+									<div class="col-xs-12 animated-item closed">
+										<div class="margin-top"></div>
+											<h3> {{ piece.shortText|linebreaks }} </h3>
+											<h4> {{ piece.longText|linebreaks }} </h4>
+									</div>
+								{% endif %}
+							</div>
+						{% endif %}
+					{% else %}
+						<div class="animated-item closed">
+							<h3> {{ piece.shortText|linebreaks }} </h3>
+							<h4> {{ piece.longText|linebreaks }} </h4>
+						</div>
+					{% endif %}
+				</div>
+			</div>
+
+			{% if piece|audioUrlForObject %}
+			<div class="row animated-item closed">
+				<div class="col-md-offset-2 col-md-8 story-secondary-body">
+					<audio controls preload="auto" src="{{ piece|audioUrlForObject }}" class="audio-control">
+						<p>Audio available. Your browser does not support playing <code>wav audio</code>.</p>
+					</audio>
+				</div>
+			</div>
+			{% endif %}
+		{% else %}
+			{% include "banyan/fragments/inner_cover_header.html" %}
+		{% endif %}
+
+		<div class="row animated-item closed">
+			<ul class="pager">
+			{% if previous_piece %}
+				<li class="previous"><a href="{% url 'read_piece' story.bnObjectId previous_piece.bnObjectId previous_piece|piece_slug:40 %}">&larr; Previous piece</a></li>
+			{% else %}
+				<li class="previous disabled"><a href="#">&larr; Previous piece</a></li>
+			{% endif %}
+			{% if next_piece %}
+				<li class="next"><a href="{% url 'read_piece' story.bnObjectId next_piece.bnObjectId next_piece|piece_slug:40 %}">Next piece &rarr;</a></li>
+			{% else %}
+				<li class="next disabled"><a href="#">Next piece &rarr;</a></li>
+			{% endif %}
+			</ul>
+			<ul class="pager">
+				<li class="center"><a href="{% url 'home_view' %}">Back to all stories</a></li>
+			</ul>
+		</div>
+	</div>
+{% endblock %}
+
+{% block document_end %}
+	<script>
+		$(document).ready(function() {
+			var timing = 50;
+			$(".animated-item").each(function(index, element) {
+				var timingElement = timing;
+				setTimeout(function() {$(element).removeClass('closed');}, timingElement);
+				timing += 150;
+			});
+
+			$("body").keydown(function(e) {
+				{% if previous_piece %}
+					if(e.keyCode == 37) { // left
+						window.location.href = "{% url 'read_piece' story.bnObjectId previous_piece.bnObjectId previous_piece|piece_slug:40 %}";
+					}
+				{% endif %}
+				{% if next_piece %}
+					if(e.keyCode == 39) { // right
+						window.location.href = "{% url 'read_piece' story.bnObjectId next_piece.bnObjectId next_piece|piece_slug:40 %}";
+					}
+				{% endif %}
+			});
+		});
+	</script>
+{% endblock document_end %}

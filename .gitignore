@@ -1,0 +1,14 @@
+*.log
+*.pot
+*.pyc
+site_media/*
+site_media
+restartServer.sh
+.DS_Store
+*/.DS_Store
+local_settings.py
+
+*.pid
+
+celerybeat-schedule
+.idea

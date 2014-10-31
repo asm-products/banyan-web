@@ -1,0 +1,26 @@
+{% load thumbnail %}
+{% load mediaFiltersForObject %}
+{% load toPythonObjects %}
+
+<div class="row">
+    <div class="col-md-offset-2 col-md-8 piece-header">
+        <div class="piece-header-title animated-item closed">
+            <h2>{{ story.title }}</h2>
+            <h3>by {{ story|contributorStringForStory }}</h3>
+        </div>
+
+        <div class="meta-strip animated-item closed">
+
+            <ul class="left">
+                <li><i class="fa fa-calendar"></i> {{ piece.createdAt|datetime_object|date:"d M Y" }}{% if piece.createdAt|date:"m/d/Y" != piece.updatedAt|date:"m/d/Y" %} (updated {{ piece.updatedAt|datetime_object|date:"m/d/Y" }}){% endif %}</li>
+                {% if piece.location %}<li><i class="fa fa-globe"></i> {{ piece.location.name }} </li>{% endif %}
+                {% if piece.author %}<li><i class="fa fa-user"></i> {{ piece.author.name }} </li>{% endif %}
+            </ul>
+
+            <ul class="right">
+                <li><i class="fa fa-eye"></i> {{ piece.stats.numViews }}</li>
+                <li><i class="fa fa-heart-o"></i> {{ piece.stats.numLikes }}</li>
+            </ul>
+        </div>
+    </div>
+</div>

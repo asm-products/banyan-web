@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block html_head %}
+	{% load staticfiles %}
+	<link href="{% static "fonts/Garton-fontfacekit/stylesheet.css" %}"  rel="stylesheet" type="text/css"/>
+{% endblock %}
+{% block body_head %}
+	<div class="storyTitle">
+		You do not have permission to read this story.
+	</div>
+{% endblock body_head %}
+{% block content %}
+<div class="contents">
+        <div class="storyNotFound">
+        </div>
+</div>
+{% endblock content %}

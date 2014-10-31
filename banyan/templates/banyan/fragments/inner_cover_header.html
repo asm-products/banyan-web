@@ -1,0 +1,22 @@
+{% load mediaFiltersForObject %}
+{% load staticfiles %}
+
+<div class="row animated-item closed">
+    <div class="col-md-offset-3 col-md-6 cover-header">
+        {% if story|thumbnailUrlForObject %}
+                <img data-src="holder.js/100%x100%" src="{{ story|thumbnailUrlForObject }}" class="img-rounded img-responsive">
+        {% else %}
+            <img data-src="holder.js/100%x100%" src="{% static "images/thumb.png" %}" class="img-rounded img-responsive" />
+        {% endif %}
+    </div>
+</div>
+
+<div class="row animated-item closed">
+    <div class="col-md-offset-3 col-md-6">
+        <h1>{{ story.title }}</h1>
+        <div class="sub-header">
+            <h2>by {{ story|contributorStringForStory }}</h2>
+        </div>
+    </div>
+</div>
+<hr>

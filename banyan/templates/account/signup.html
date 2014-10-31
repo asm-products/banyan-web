@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Banyan</title>
+
+{% load staticfiles %}
+
+<link href="{% static "css/reset.css" %}" rel="stylesheet" type="text/css" />
+<link href="{% static "css/style.css" %}" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+<div id="container">
+<div class="header">
+<div class="innerHeader">
+<h1 class="logo"><a href="{% url home_view %}"><img src="{% static "images/logo.png" %}" width="110" height="45" alt="Logo" /></a></h1>
+
+    <div class="userBar">
+   
+    <span class="userBtn">
+    <a href="{% url signup_view %}">Signup</a>
+    <a href="{% url login_view %}">SignIn</a>
+   <span style="color:#999;">- OR -</span>
+    </span>
+     
+   <div style="float:left; margin-right:10px; margin-top:-2px;"><a href="{% url "social:begin" 'facebook' %}"><img src="{% static "images/fbConnect.png" %}" width="90" height="27" alt="Login via Facebook" /></a></div> 
+    
+    </div>
+</div>
+
+
+</div>
+<div class="clear"></div>
+
+<!--<div class="message error"><p>Error Message Here</p></div>
+<div class="message info"><p>Info Message Here</p></div>
+<div class="message warning"><p>Warning Here</p></div>
+<div class="message success"><p>Success Here</p></div>
+-->
+<div class="clear"></div>
+
+<div class="contents">
+<h1></h1>
+        <div class="userForm">
+        
+        <form action="" method="POST" class="frmElements">
+        {% csrf_token %}
+            <div class="message error">
+                {{ form.non_field_errors|striptags }}
+            </div>
+         <ul>
+        	<li>
+                <span class="lable">Username</span>
+                <input name="username" type="text" />
+		        {% if form.username.errors %}
+		            <div class="frmError">{{form.username.errors|striptags}}</div>
+		        {% endif %}
+            </li> 
+            
+            <li>
+                <span class="lable">Name</span>
+                <input name="name" type="text" />
+                {% if form.name.errors %}
+		            <p class="frmError">{{form.name.errors|striptags}}</p>
+		        {% endif %}
+			</li>
+
+            <li>
+                <span class="lable">Password</span>
+                <input name= "password1" type="password" value="" size="24" >
+			    {% if form.password1.errors %}
+			        <p class="frmError">{{form.password1.errors|striptags}}</p>
+			    {% endif %}            
+            </li> 
+
+            <li>
+                <span class="lable">Password (again)</span>
+                 <input name= "password2" type="password" value="" size="24" >
+                {% if form.password2.errors %} 
+			    <p class="frmError">{{form.password2.errors|striptags}}</p>
+			    {% endif %}
+			</li> 
+            
+            <li>
+                <span class="lable">Email</span>
+                <input name="email" type="text" />
+				{% if form.email.errors %} 
+				    <p class="frmError">{{form.email.errors|striptags}}</p>
+				{% endif %}
+             </li> 
+            
+            
+             <li>
+            <input name="" type="submit" class="frmBtn" value="Get Started"  />
+           
+            </li> 
+            
+         </ul>
+         </form>
+        </div>
+
+</div>
+
+<div class="clear"></div>
+
+
+
+
+
+</div><div class="footer" style="position:absolute; bottom:0;">
+<p>© Copyright Banyan 2012</p>
+
+</div>
+</body>
+</html>

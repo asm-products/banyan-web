@@ -1,0 +1,27 @@
+{% load mediaFiltersForObject %}
+{% load thumbnail %}
+{% load toPythonObjects %}
+{% load staticfiles %}
+
+<div class="item animated-item closed">
+    <a href="{% url 'read_story' story.bnObjectId story.title|truncatechars:40|slugify %}">
+        {% if cover %}
+            {% thumbnail cover.url '555x555' crop="center" as im %}
+                <img data-src="holder.js/100%x100%" alt="100%x100%" src="{{ im.url }}" width="555" height="555" class="img-rounded img-responsive">
+            {% endthumbnail %}
+        {% else %}
+            <img data-src="holder.js/100%x100%" alt="100%x100%" src="{% static "images/thumb.png" %}" width="555" height="555" class="img-rounded img-responsive">
+        {% endif %}
+        <div class="caption">
+            <h3>{{ story.title }}</h3>
+            <h4>by {{ story|contributorStringForStory|truncatechars:40 }}</h4>
+        </div>
+        <div class="meta">
+            <span class="read-more">Read more <i class="fa fa-chevron-right"></i></span>
+            <ul>
+                <li><i class="fa fa-eye"></i> {{ story.stats.numViews }}</li>
+                <!-- <li><i class="fa fa-heart-o"></i> {{ story.stats.numLikes }}</li> -->
+            </ul>
+        </div>
+    </a>
+</div>

@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Banyan Login</title>
+
+{% load staticfiles %}
+
+<link href="{% static "css/reset.css" %}" rel="stylesheet" type="text/css" />
+<link href="{% static "css/style.css" %}" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="{% static "script/jquery-1.7.1.min.js" %}"></script>
+
+<script type="text/javascript">
+$(function() {
+    // setTimeout() function will be fired after page is loaded
+    // it will wait for 5 sec. and then will fire
+    // $("#successMessage").hide() function
+    setTimeout(function() {
+    $('.error').fadeOut('fast');
+}, 3000);
+});
+</script>
+
+</head>
+
+<body>
+<div id="container">
+<div class="header">
+<div class="innerHeader">
+<h1 class="logo"><a href="{% url 'home_view' %}"><img src="{% static "images/logo.png" %}" width="110" height="45" alt="Logo" /></a></h1>
+
+    <div class="userBar">
+
+    <span class="userBtn">
+    <a href="{% url 'signup_view' %}">Signup</a>
+    <a href="{% url 'login_view' %}">SignIn</a>
+   <span style="color:#999;">- OR -</span>
+    </span>
+
+   <div style="float:left; margin-right:10px; margin-top:-2px;"><a href="{% url "social:begin" 'facebook' %}"><img src="{% static "images/fbConnect.png" %}" width="90" height="27" alt="Login via Facebook" /></a></div>
+
+    </div>
+</div>
+
+
+</div>
+
+<div class="clear"></div>
+{% if error %}
+<div class="message">
+<div class= "error"><p>Enter a valid username and password to login</p></div>
+</div>
+{% endif %}
+<div class="clear"></div>
+
+<div class="contents">
+        <div class="userForm">
+
+        <form action="" method="POST" class="frmElements">
+        {% csrf_token %}
+            {% if  form.non_field_errors %}<p class="message error"> {{ form.non_field_errors|striptags }} </p>{%endif%}
+         <ul>
+        	<li>
+                <span class="lable">Username</span>
+                <input name="username" type="text" />
+		        {% if form.username.errors %}
+		         <p class="frmError">{{form.username.errors|striptags}}</p>
+		        {% endif %}
+		   </li>
+
+            <li>
+                <span class="lable">Password</span>
+                <input name= "password" type="password" name="pass" value="" size="24" >
+                {% if form.password.errors %}
+                <p class="frmError">{{form.password.errors|striptags}}</p>
+               {% endif %}
+            </li>
+
+             <li>
+            <input name="" type="submit" class="frmBtn" value="Continue"  />
+
+            </li>
+
+         </ul>
+         </form>
+        </div>
+
+</div>
+
+<div class="clear"></div>
+
+
+
+
+
+</div><div class="footer" style="position:absolute; bottom:0;">
+<p>© Copyright Banyan 2012</p>
+
+</div>
+</body>
+</html>

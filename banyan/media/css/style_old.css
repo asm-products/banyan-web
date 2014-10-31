@@ -1,0 +1,61 @@
+
+/* Wrapper for page content to push down footer */
+#wrap {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  /* Negative indent footer by its height */
+  margin: 0 auto -60px;
+  /* Pad bottom by footer height */
+  padding: 0 0 60px;
+}
+
+/* Set the fixed height of the footer here */
+#footer {
+  height: 60px;
+  background-color: #f5f5f5;
+}
+
+
+/*.page{background-image:url(../images/404.jpg); background-position:left top;  background-repeat:no-repeat; width:960px; height:580px; }*/
+.storyNotFound{background-image:url(../images/story-not-found.jpg); background-position:left top;  background-repeat:no-repeat; width:960px; height:540px; opacity: 0.4;}
+
+/*============Thumbnails============*/
+.view{float:left; display:block; font-size:18px;}
+.like{float:right; display:block;font-size:18px;}
+
+.viewIcon{background-image:url(../images/viewIcon.png); background-repeat:no-repeat; background-position:1px 2px; padding-left:28px;}
+.viewIcon:hover{color:#777;}
+.likeIcon{background-image:url(../images/likeIcon.png); background-repeat:no-repeat; background-position:1px 2px; padding-left:21px;}
+.likeIcon:hover{color:#777;}
+
+.bookContainer{ position:absolute; left:-325px; margin:30px 0; background-image:url(../images/book.png);  background-repeat:no-repeat; background-position:60px 0; width:100%; height:527px;}
+
+/*.story{width:669px; height:436px; overflow:hidden; padding:20px;}*/
+.storyImageVerticle{float:left; display:block; margin-right:20px; margin-bottom:20px; max-width:300px; max-height:430px; overflow:hidden;}
+.storyImageHorizontal{float:left; display:block; margin-right:20px; margin-bottom:20px; max-width:660px; max-height:250px; overflow:hidden;}
+.storyDescription{font-size:24px; color:#444; line-height:32px;  margin-bottom:15px;}
+
+.pieceImagePortrait{float:left; display:block; margin-left:20px; margin-right:40px; max-width:900px; max-height:900px; overflow:hidden; border-width: 20px;}
+.pieceImageLandscape{display:block; margin-bottom:40px; max-width:900px; max-height:900px; overflow:hidden;}
+
+div.pieceDesc #pieceLongText p {
+   word-spacing: 3px;
+   font-size:20px;
+   color:#444;
+   line-height:25px;
+   margin-bottom:15px;
+   margin-bottom:12px;
+   font-family: 'FengardoNeueRegular', Arial, sans-serif;
+}
+
+div.pieceDesc #pieceShortText p {
+   word-spacing: 3px;
+   font-size:40px;
+   font-weight:50;
+   color:#444;
+   line-height:50px;
+   margin-bottom:15px;
+   margin-bottom:12px;
+   font-family: 'FengardoNeueRegular', Arial, sans-serif;
+}
