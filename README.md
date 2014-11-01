@@ -6,7 +6,7 @@ This is a product being built by the Assembly community. You can help push this 
 
 ### Getting started
 
-This repo is the backend repo for [Banyan](www.banyan.io).
+This repo is the backend for [Banyan](www.banyan.io).
 - The backend is written in Django and API exposed through Tastypie.
 - Celery and Redis are used for async workload and caching.
 - PostgreSQL 9.3 for database.
