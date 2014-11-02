@@ -19,9 +19,9 @@ To start contributing to this project:
 3. Install the requirements (pip install -r requirements.txt)
 4. Create a *banyan/local_settings.py* file and add the configuration at the end of this README
 5. Make sure Postgres and Redis (optional to start server, needed for celery) are running
-6. Sync the database and migrate apps (*./manage.py syncdb; ./manage.py migrate <apps>*)
-7. Run the local server: *./manage.py runserver*
-8. Run celery: *celery -A banyan worker -l info -B*
+6. Sync the database and migrate apps (`./manage.py syncdb; ./manage.py migrate <apps>`)
+7. Run the local server: `./manage.py runserver`
+8. Run celery: `celery -A banyan worker -l info -B`
 
 Banyan development webserver is now running!
 
