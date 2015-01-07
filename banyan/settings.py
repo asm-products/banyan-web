@@ -154,10 +154,10 @@ if 'REDISCLOUD_URL' in os.environ:
     CACHES = {
         'default': {
             'BACKEND': 'redis_cache.cache.RedisCache',
-            'LOCATION': '%s:%s:0' % (redis_url.hostname, redis_url.port),
+            'LOCATION': '%s:%s:1' % (redis_url.hostname, redis_url.port),
             'OPTIONS': {
                 'PASSWORD': redis_url.password,
-                'DB': 0,
+                'DB': 1,
             }
         }
     }
@@ -165,7 +165,7 @@ if 'REDISCLOUD_URL' in os.environ:
     CACHEOPS_REDIS = {
         'host': redis_url.hostname, # redis-server is on same machine
         'port': redis_url.port,        # default redis port
-        'db': 0,             # TODO: SELECT non-default redis database
+        'db': 1,             # TODO: SELECT non-default redis database
                              # using separate redis db or redis instance
                              # is highly recommended
         'password': redis_url.password,
