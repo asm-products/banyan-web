@@ -293,7 +293,7 @@ EMAIL_BACKEND = 'django_ses.SESBackend'
 # Celery configurations
 try:
     redis_url = urlparse.urlparse(os.environ.get('REDISCLOUD_URL'))
-    BROKER_URL = 'redis://%s@%s:%s/0' % (redis_url.password, redis_url.hostname, redis_url.port)
+    BROKER_URL = 'redis://:%s@%s:%s/0' % (redis_url.password, redis_url.hostname, redis_url.port)
 except:
     BROKER_URL = 'sqs://'
 CELERY_SEND_TASK_ERROR_EMAILS = True
