@@ -21,4 +21,6 @@ PROJECT_ROOT = os.path.dirname(__file__)
 sys.path.append(PROJECT_ROOT)
 
 from django.core.wsgi import get_wsgi_application
-application = get_wsgi_application()
+from dj_static import Cling
+
+application = Cling(get_wsgi_application())
