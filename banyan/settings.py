@@ -151,7 +151,6 @@ TEMPLATE_DIRS = [
 if 'REDISCLOUD_URL' in os.environ:
     redis_url = urlparse.urlparse(os.environ.get('REDISCLOUD_URL'))
 
-    REDIS_ENDPOINT = urllib.quote(os.environ['REDIS_ENDPOINT'], safe='')
     CACHES = {
         'default': {
             'BACKEND': 'redis_cache.cache.RedisCache',
@@ -292,7 +291,8 @@ EMAIL_BACKEND = 'django_ses.SESBackend'
 
 # Celery configurations
 try:
-    BROKER_URL = 'redis://%s:6379/0' % (REDIS_ENDPOINT)
+    redis_url = urlparse.urlparse(os.environ.get('REDISCLOUD_URL'))
+    BROKER_URL = 'redis://%s:%s/0' % (redis_url.host, redis_url.port)
 except:
     BROKER_URL = 'sqs://'
 CELERY_SEND_TASK_ERROR_EMAILS = True
