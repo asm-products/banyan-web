@@ -306,7 +306,7 @@ CELERY_TASK_PUBLISH_RETRY_POLICY = {
     'interval_step': 10,
     'interval_max': 3600,
 }
-CELERY_TASK_SERIALIZER = "json"
+CELERY_TASK_SERIALIZER = "pickle"
 
 # En/Decryption Sixteen byte key
 OBFUSCATE_KEY = b'Sixteen byte key'
