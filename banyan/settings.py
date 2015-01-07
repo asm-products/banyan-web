@@ -2,6 +2,7 @@
 import sys, os, os.path
 import logging
 import urllib
+import dj_database_url
 
 from datetime import timedelta
 
@@ -18,22 +19,14 @@ ROOT = 'https://www.banyan.io'
 PROJECT_ROOT = os.path.dirname(__file__)
 
 # PROJECT DATABASE SETTINGS
-if 'RDS_DB_NAME' in os.environ:
-    DATABASES = {
-                 'default': {
-                             'ENGINE':'django.db.backends.postgresql_psycopg2',
-                             'NAME': os.environ['RDS_DB_NAME'],
-                             'USER': os.environ['RDS_USERNAME'],
-                             'PASSWORD': os.environ['RDS_PASSWORD'],
-                             'HOST': os.environ['RDS_HOSTNAME'],
-                             'PORT': os.environ['RDS_PORT'],
-                             'CONN_MAX_AGE': 300, # keep a persistent connection with the db for 5 mins
-                             }
-                 }
+DATABASES = { 'default' : dj_database_url.config()}
 
 ADMINS = (
     ('Devang Mundhra', 'devang.mundhra@banyan.io'),
 )
+
+# Honor the 'X-Forwarded-Proto' header for request.is_secure()
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 MANAGERS = ADMINS
 # Local time zone for this installation. Choices can be found here:
@@ -313,6 +306,7 @@ OBFUSCATE_KEY = b'Sixteen byte key'
 WSGI_APPLICATION = 'banyan.wsgi.application'
 
 ALLOWED_HOSTS = [
+    '*',
     '.banyan.io', # Allow domain and subdomains
     '.banyan.io.', # Also allow FQDN and subdomains
     'localhost',
