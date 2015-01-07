@@ -1,7 +1,7 @@
 # Django settings for Banyan project.
-import sys, os, os.path
+import os, os.path
 import logging
-import urllib
+import urllib, urlparse
 import dj_database_url
 
 from datetime import timedelta
@@ -148,19 +148,25 @@ TEMPLATE_DIRS = [
 ]
 
 # Caching related parameters
-if 'REDIS_ENDPOINT' in os.environ:
+if 'REDISCLOUD_URL' in os.environ:
+    redis_url = urlparse.urlparse(os.environ.get('REDISCLOUD_URL'))
+
     REDIS_ENDPOINT = urllib.quote(os.environ['REDIS_ENDPOINT'], safe='')
     CACHES = {
         'default': {
             'BACKEND': 'redis_cache.cache.RedisCache',
-            'LOCATION': '%s:6379:1' % (REDIS_ENDPOINT),
+            'LOCATION': '%s:%s' % (redis_url.hostname, redis_url.port),
+            'OPTIONS': {
+                'PASSWORD': redis_url.password,
+                'DB': 0,
+            }
         }
     }
     
     CACHEOPS_REDIS = {
-        'host': REDIS_ENDPOINT, # redis-server is on same machine
-        'port': 6379,        # default redis port
-        'db': 1,             # SELECT non-default redis database
+        'host': redis_url.hostname, # redis-server is on same machine
+        'port': redis_url.port,        # default redis port
+        'db': 0,             # SELECT non-default redis database
                              # using separate redis db or redis instance
                              # is highly recommended
         'socket_timeout': 3,
