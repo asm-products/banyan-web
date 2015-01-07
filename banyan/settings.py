@@ -168,7 +168,7 @@ if 'REDISCLOUD_URL' in os.environ:
         'db': 0,             # TODO: SELECT non-default redis database
                              # using separate redis db or redis instance
                              # is highly recommended
-        'passwrod': redis_url.password,
+        'password': redis_url.password,
         'socket_timeout': 3,
     }
 
