@@ -19,7 +19,7 @@ ROOT = 'https://www.banyan.io'
 PROJECT_ROOT = os.path.dirname(__file__)
 
 # PROJECT DATABASE SETTINGS
-DATABASES = { 'default' : dj_database_url.config()}
+DATABASES = {'default': dj_database_url.config()}
 
 ADMINS = (
     ('Devang Mundhra', 'devang.mundhra@banyan.io'),
@@ -155,10 +155,6 @@ if 'REDISCLOUD_URL' in os.environ:
         'default': {
             'BACKEND': 'redis_cache.cache.RedisCache',
             'LOCATION': '%s:%s' % (redis_url.hostname, redis_url.port),
-            'OPTIONS': {
-                'PASSWORD': redis_url.password,
-                'DB': 0,
-            }
         }
     }
     
@@ -292,7 +288,7 @@ EMAIL_BACKEND = 'django_ses.SESBackend'
 # Celery configurations
 try:
     redis_url = urlparse.urlparse(os.environ.get('REDISCLOUD_URL'))
-    BROKER_URL = 'redis://%s:%s/0' % (redis_url.host, redis_url.port)
+    BROKER_URL = 'redis://%s:%s/0' % (redis_url.hostname, redis_url.port)
 except:
     BROKER_URL = 'sqs://'
 CELERY_SEND_TASK_ERROR_EMAILS = True
