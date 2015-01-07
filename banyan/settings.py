@@ -155,15 +155,20 @@ if 'REDISCLOUD_URL' in os.environ:
         'default': {
             'BACKEND': 'redis_cache.cache.RedisCache',
             'LOCATION': '%s:%s' % (redis_url.hostname, redis_url.port),
+            'OPTIONS': {
+                'PASSWORD': redis_url.password,
+                'DB': 0,
+            }
         }
     }
     
     CACHEOPS_REDIS = {
         'host': redis_url.hostname, # redis-server is on same machine
         'port': redis_url.port,        # default redis port
-        'db': 0,             # SELECT non-default redis database
+        'db': 0,             # TODO: SELECT non-default redis database
                              # using separate redis db or redis instance
                              # is highly recommended
+        'passwrod': redis_url.password,
         'socket_timeout': 3,
     }
 
@@ -172,7 +177,7 @@ if 'REDISCLOUD_URL' in os.environ:
 # SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 # SESSION_CACHE_ALIAS = 'default'
 DJANGO_REDIS_IGNORE_EXCEPTIONS = True
-CACHEOPS_DEGRADE_ON_FAILURE=True
+CACHEOPS_DEGRADE_ON_FAILURE = True
 CACHEOPS = {
             'tastypie.*' : ('get', 60*60*24*365), # 1 year timeout
             'social.*' : ('get', 60*60), # 1 hour timeout for social auth data
@@ -288,7 +293,7 @@ EMAIL_BACKEND = 'django_ses.SESBackend'
 # Celery configurations
 try:
     redis_url = urlparse.urlparse(os.environ.get('REDISCLOUD_URL'))
-    BROKER_URL = 'redis://%s:%s/0' % (redis_url.hostname, redis_url.port)
+    BROKER_URL = 'redis://%s@%s:%s/0' % (redis_url.password, redis_url.hostname, redis_url.port)
 except:
     BROKER_URL = 'sqs://'
 CELERY_SEND_TASK_ERROR_EMAILS = True
@@ -301,6 +306,7 @@ CELERY_TASK_PUBLISH_RETRY_POLICY = {
     'interval_step': 10,
     'interval_max': 3600,
 }
+CELERY_TASK_SERIALIZER = "json"
 
 # En/Decryption Sixteen byte key
 OBFUSCATE_KEY = b'Sixteen byte key'
