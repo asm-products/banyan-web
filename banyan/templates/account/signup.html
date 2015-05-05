@@ -15,13 +15,13 @@
 <div id="container">
 <div class="header">
 <div class="innerHeader">
-<h1 class="logo"><a href="{% url home_view %}"><img src="{% static "images/logo.png" %}" width="110" height="45" alt="Logo" /></a></h1>
+<h1 class="logo"><a href="{% url 'home_view' %}"><img src="{% static "images/logo.png" %}" width="110" height="45" alt="Logo" /></a></h1>
 
     <div class="userBar">
    
     <span class="userBtn">
-    <a href="{% url signup_view %}">Signup</a>
-    <a href="{% url login_view %}">SignIn</a>
+    <a href="{% url 'signup_view' %}">Signup</a>
+    <a href="{% url 'login_view' %}">SignIn</a>
    <span style="color:#999;">- OR -</span>
     </span>
      
