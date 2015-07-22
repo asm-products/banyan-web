@@ -1,33 +1,23 @@
-import base64
-import urllib, urllib2, httplib
-import pdb
+from social.apps.django_app.utils import psa
+from social.exceptions import AuthMissingParameter
 
-from social.apps.django_app.utils import strategy
-from tastypie.http import *
-from tastypie.serializers import Serializer
 
-from django import http
-from django.conf import settings
-from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden, Http404
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext, Context, loader
-from django.utils.http import base36_to_int
-from django.utils.safestring import mark_safe
-from django.utils.translation import check_for_language, ugettext, ugettext_lazy as _
+
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from django.contrib.auth.tokens import default_token_generator
-from django.views.decorators.csrf import csrf_exempt
-from django.template.loader import render_to_string
 
-from accounts.forms import SignupForm, LoginForm
 
-@strategy() 
+from .forms import SignupForm, LoginForm
+
+
+@psa('social:complete')
 def register_by_access_token(request, backend, *args, **kwargs):
-    backend = request.strategy.backend
+    backend = request.backend
     access_token = kwargs.get('access_token')
     if not access_token:
         raise AuthMissingParameter(backend, 'access_token')
@@ -35,7 +25,8 @@ def register_by_access_token(request, backend, *args, **kwargs):
     if user and user.is_active:
         login(request, user)
     return user
-                               
+
+
 def login_view(request, mode = None ,**kwargs):
     template_name = kwargs.pop("template_name", "account/login.html")
     form_class = kwargs.pop("form_class", LoginForm)

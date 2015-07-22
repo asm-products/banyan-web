@@ -66,7 +66,7 @@ class StoryResource(RemoteObjectResource):
             cache_key = '%s:%s' % (str(request.user.id), HiddenObject.HIDDEN_STORIES_ID_LIST_CACHE_KEY)
             hidden_stories_id_list = cache.get(cache_key)
             if hidden_stories_id_list is None:
-                ctype = ContentType.objects.get(app_label="core", model="story", name="story")
+                ctype = ContentType.objects.get(app_label="core", model="story")
                 hidden_stories_qs = HiddenObject.objects.filter(content_type = ctype, user = request.user)
                 hidden_stories_id_list = hidden_stories_qs.values_list('object_id', flat=True)
                 cache.set(cache_key, hidden_stories_id_list, None) # timeout forever

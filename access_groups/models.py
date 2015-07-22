@@ -13,7 +13,7 @@ class AccessGroup(models.Model):
     '''
     A concrete class that has a one-to-one relationship with a group descriptor model
     '''
-    users = models.ManyToManyField(BanyanUser, null=True, blank=True, related_name="access_groups", through="GroupMembership")
+    users = models.ManyToManyField(BanyanUser, related_name="access_groups", through="GroupMembership")
     groupdesc_content_type = models.ForeignKey(ContentType)
     groupdesc_object_id = models.PositiveIntegerField()
     groupdesc_object = generic.GenericForeignKey('groupdesc_content_type', 'groupdesc_object_id')

@@ -22,7 +22,7 @@ PROJECT_ROOT = os.path.dirname(__file__)
 DATABASES = {'default': dj_database_url.config()}
 
 ADMINS = (
-    ('Devang Mundhra', 'devang.mundhra@banyan.io'),
+    ('Devang Mundhra', 'devangmundhra@gmail.com'),
 )
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
@@ -117,13 +117,14 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     )
 
 MIDDLEWARE_CLASSES = (
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.common.BrokenLinkEmailsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.RemoteUserMiddleware',
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
 #     'core.middleware.ProfileMiddleware', #Used for profiling, use only in dev server
 )
 
@@ -153,11 +154,12 @@ if 'REDISCLOUD_URL' in os.environ:
 
     CACHES = {
         'default': {
-            'BACKEND': 'redis_cache.cache.RedisCache',
+            'BACKEND': 'django_redis.cache.RedisCache',
             'LOCATION': '%s:%s:0' % (redis_url.hostname, redis_url.port),
             'OPTIONS': {
                 'PASSWORD': redis_url.password,
                 'DB': 0,
+                "CLIENT_CLASS": "django_redis.client.DefaultClient",
             }
         }
     }
@@ -212,21 +214,19 @@ INSTALLED_APPS = (
     # global apps
     'cacheops',
 
+    # third party apps
+    'tastypie',
+    'sorl.thumbnail',
+    'social.apps.django_app.default',
+    'facebook',
+    'storages',
+    'django_ses',
+
     # project apps
     'accounts',
     'core',
     'access_groups',
     'content_feedback',
-
-    # third party apps
-    'tastypie',
-    'sorl.thumbnail',
-    'social.apps.django_app.default',
-    'south',
-    'facebook',
-    'storages',
-    'django_ses',
-    'debug_toolbar',
 )
 
 # Social Auth setting
@@ -287,7 +287,7 @@ AWS_SES_REGION_ENDPOINT = 'email.us-east-1.amazonaws.com'
 
 CONTACT_EMAIL = 'help@banyan.io'
 SITE_NAME = 'Banyan'
-SERVER_EMAIL = 'devang.mundhra@banyan.io'
+SERVER_EMAIL = 'devangmundhra@gmail.com'
 EMAIL_BACKEND = 'django_ses.SESBackend'
 
 # Celery configurations

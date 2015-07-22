@@ -58,7 +58,7 @@ class RemoteObject(models.Model):
     isLocationEnabled = models.BooleanField(default=False)
     location = JSONField(null=True, blank=True)
     author = models.ForeignKey(BanyanUser, related_name="%(app_label)s_%(class)s_author")
-    contributors = models.ManyToManyField(BanyanUser, null=True, blank=True, related_name="%(app_label)s_%(class)s_contributors")
+    contributors = models.ManyToManyField(BanyanUser, related_name="%(app_label)s_%(class)s_contributors")
     timeStamp = models.IntegerField(db_index=True)
     tags = models.CharField(max_length=500, null=True, blank=True)
     flags = generic.GenericRelation(FlaggedObject)
@@ -90,8 +90,8 @@ class Story(RemoteObject):
     readAccess = JSONField()
     writeAccess = JSONField()
     media = JSONField(null=True, blank=True)
-    permittedGroups = models.ManyToManyField(AccessGroup, null=True, blank=True, related_name="stories", through="StoryGroupAccess")
-    permittedUsers = models.ManyToManyField(BanyanUser, null=True, blank=True, related_name="stories", through="StoryUserAccess")
+    permittedGroups = models.ManyToManyField(AccessGroup, related_name="stories", through="StoryGroupAccess")
+    permittedUsers = models.ManyToManyField(BanyanUser, related_name="stories", through="StoryUserAccess")
     
     '''
     Cache keys
