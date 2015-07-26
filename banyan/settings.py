@@ -14,7 +14,7 @@ THUMBNAIL_DEBUG = DEBUG
 TASTYPIE_FULL_DEBUG = DEBUG
 
 # Root address of our site
-ROOT = 'https://www.banyan.io'
+ROOT = 'http://banyan.herokuapp.com/'
 
 PROJECT_ROOT = os.path.dirname(__file__)
 
@@ -240,7 +240,7 @@ if 'FACEBOOK_SECRET' in os.environ:
     SOCIAL_AUTH_FACEBOOK_SECRET = os.environ['FACEBOOK_SECRET']
 if 'FACEBOOK_APP_ACCESS_TOKEN' in os.environ:
     FACEBOOK_APP_ACCESS_TOKEN = os.environ['FACEBOOK_APP_ACCESS_TOKEN']
-FACEBOOK_REDIRECT_URI = 'https://www.banyan.io'
+FACEBOOK_REDIRECT_URI = 'http://banyan.herokuapp.com/'
 FACEBOOK_CACHE_TIMEOUT = 1800
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['public_profile ', 'email', 'user_friends']
 
@@ -285,10 +285,11 @@ AWS_S3_MEDIA_BUCKET = 'banyanusercontent'
 AWS_SES_REGION_NAME = 'us-east-1'
 AWS_SES_REGION_ENDPOINT = 'email.us-east-1.amazonaws.com'
 
-CONTACT_EMAIL = 'help@banyan.io'
+CONTACT_EMAIL = 'devangmundhra@gmail.com'
 SITE_NAME = 'Banyan'
 SERVER_EMAIL = 'devangmundhra@gmail.com'
-EMAIL_BACKEND = 'django_ses.SESBackend'
+EMAIL_BACKEND = 'djrill.mail.backends.djrill.DjrillBackend'
+MANDRILL_API_KEY = os.environ.get('MANDRILL_APIKEY', "")
 
 # Celery configurations
 try:
@@ -297,7 +298,7 @@ try:
 except:
     BROKER_URL = 'sqs://'
 CELERY_SEND_TASK_ERROR_EMAILS = True
-MAILER_EMAIL_BACKEND = 'django_ses.SESBackend'
+MAILER_EMAIL_BACKEND = 'djrill.mail.backends.djrill.DjrillBackend'
 
 
 CELERY_TASK_PUBLISH_RETRY_POLICY = {
@@ -317,6 +318,7 @@ ALLOWED_HOSTS = [
     '*',
     '.banyan.io', # Allow domain and subdomains
     '.banyan.io.', # Also allow FQDN and subdomains
+    'banyan.herokuapp.com',
     'localhost',
 ]
 
