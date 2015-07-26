@@ -22,7 +22,7 @@ PROJECT_ROOT = os.path.dirname(__file__)
 DATABASES = {'default': dj_database_url.config()}
 
 ADMINS = (
-    ('Devang Mundhra', 'devangmundhra@gmail.com'),
+    ('Banyan Team', 'banyan.ios.app@gmail.com'),
 )
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
@@ -284,9 +284,9 @@ AWS_S3_MEDIA_BUCKET = 'banyanusercontent'
 AWS_SES_REGION_NAME = 'us-east-1'
 AWS_SES_REGION_ENDPOINT = 'email.us-east-1.amazonaws.com'
 
-CONTACT_EMAIL = 'devangmundhra@gmail.com'
+CONTACT_EMAIL = 'banyan.ios.app@gmail.com'
 SITE_NAME = 'Banyan'
-SERVER_EMAIL = 'devangmundhra@gmail.com'
+SERVER_EMAIL = 'server@banyan.io'
 EMAIL_BACKEND = 'sgbackend.SendGridBackend'
 SENDGRID_USER = os.environ.get('SENDGRID_USERNAME', "")
 SENDGRID_PASSWORD = os.environ.get('SENDGRID_PASSWORD', "")
