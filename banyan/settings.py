@@ -334,7 +334,7 @@ LOGGING = {
         'mail_admins': {
             'level': 'ERROR',
             'class': 'django.utils.log.AdminEmailHandler',
-            'email_backend': 'django_ses.SESBackend',
+            'email_backend': 'djrill.mail.backends.djrill.DjrillBackend',
         },
         'null': {
             'level': 'DEBUG',
