@@ -220,7 +220,6 @@ INSTALLED_APPS = (
     'social.apps.django_app.default',
     'facebook',
     'storages',
-    'django_ses',
 
     # project apps
     'accounts',
@@ -288,8 +287,9 @@ AWS_SES_REGION_ENDPOINT = 'email.us-east-1.amazonaws.com'
 CONTACT_EMAIL = 'devangmundhra@gmail.com'
 SITE_NAME = 'Banyan'
 SERVER_EMAIL = 'devangmundhra@gmail.com'
-EMAIL_BACKEND = 'djrill.mail.backends.djrill.DjrillBackend'
-MANDRILL_API_KEY = os.environ.get('MANDRILL_APIKEY', "")
+EMAIL_BACKEND = 'sgbackend.SendGridBackend'
+SENDGRID_USER = os.environ.get('SENDGRID_USERNAME', "")
+SENDGRID_PASSWORD = os.environ.get('SENDGRID_PASSWORD', "")
 
 # Celery configurations
 try:
@@ -298,7 +298,7 @@ try:
 except:
     BROKER_URL = 'sqs://'
 CELERY_SEND_TASK_ERROR_EMAILS = True
-MAILER_EMAIL_BACKEND = 'djrill.mail.backends.djrill.DjrillBackend'
+MAILER_EMAIL_BACKEND = 'sgbackend.SendGridBackend'
 
 
 CELERY_TASK_PUBLISH_RETRY_POLICY = {
@@ -334,7 +334,7 @@ LOGGING = {
         'mail_admins': {
             'level': 'ERROR',
             'class': 'django.utils.log.AdminEmailHandler',
-            'email_backend': 'djrill.mail.backends.djrill.DjrillBackend',
+            'email_backend': 'sgbackend.SendGridBackend',
         },
         'null': {
             'level': 'DEBUG',
