@@ -228,10 +228,14 @@ def new_piece(piece):
     BanyanUserNotifications.bulk_save_all(new_notifications)
     
 @shared_task
-def new_activity(activity):
+def new_activity(activity_id):
     """
     Method called when an activity is saved
     """
+    try:
+        activity = Activity.objects.get(pk=activity_id)
+    except Activity.DoesNotExist:
+        return
 
     # We only send notifications for a like activity
     if activity.type == Activity.LIKE:

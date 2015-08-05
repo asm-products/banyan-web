@@ -130,4 +130,4 @@ def activity_post_save(sender, **kwargs):
     if kwargs.get('created') is False:
         raise ValueError("Activity can not be edited")
 
-    new_activity.delay(activity)
+    new_activity.delay(activity.pk)
